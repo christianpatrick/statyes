@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: statyes-db-svc
+spec:
+  selector:
+    app: statyes-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      nodePort: 30432
+  type: NodePort

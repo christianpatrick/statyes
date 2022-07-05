@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: statyes-client
+  labels:
+    app: statyes-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: statyes-client
+  template:
+    metadata:
+      labels:
+        app: statyes-client
+    spec:
+      containers:
+        - name: statyes-client
+          image: statyes-client
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Never
+          volumeMounts:
+            - name: data
+              mountPath: /usr/src/app
+              subPath: statyes-app/client
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: statyes-pvc

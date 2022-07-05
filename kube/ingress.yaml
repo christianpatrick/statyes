@@ -1,0 +1,55 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/enable-cors: "off"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS, DELETE"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.org/websocket-services: "statyes-client-ws-svc"
+spec:
+  tls:
+  - hosts:
+      - api.statyes.localhost
+      - app.statyes.localhost
+    secretName: statyes-tls
+  rules:
+    - host: api.statyes.localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: statyes-api-svc
+                port:
+                  number: 8080
+    - host: app.statyes.localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: statyes-client-svc
+                port:
+                  number: 3000
+          - path: /ws
+            pathType: Prefix
+            backend:
+              service:
+                name: statyes-client-ws-svc
+                port:
+                  number: 24678
+    - host: db.statyes.localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: statyes-db-svc
+                port:
+                  number: 30432

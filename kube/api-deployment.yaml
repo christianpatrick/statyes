@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: statyes-api
+  labels:
+    app: statyes-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: statyes-api
+  template:
+    metadata:
+      labels:
+        app: statyes-api
+    spec:
+      containers:
+        - name: statyes-api
+          image: statyes-api
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Never
+          volumeMounts:
+            - name: data
+              mountPath: /code
+              subPath: statyes-app/api
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: statyes-pvc
