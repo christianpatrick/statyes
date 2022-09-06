@@ -1,9 +1,15 @@
-from typing import Union
-
+import os
+from dotenv import load_dotenv
 from fastapi import FastAPI
+from .routers import events
+
+if os.environ.get("PYTHON_ENV") == "development":
+    load_dotenv()
 
 app = FastAPI()
+app.include_router(events.router)
+
 
 @app.get("/")
-def read_root():
-    return {"Hello": "s"}
+async def root():
+    return {"message": "Welcome to the Statyes API!"}

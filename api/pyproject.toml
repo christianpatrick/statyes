@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "statyes-api"
+version = "0.0.1"
+description = ""
+authors = []
+license = "AGPL-3.0"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+uvicorn = "^0.18.2"
+fastapi = "^0.79.0"
+pydentic = "^0.0.1-alpha.3"
+alembic = "^1.8.1"
+SQLAlchemy = "^1.4.39"
+psycopg2-binary = "^2.9.3"
+alembic-utils = "^0.7.8"
+
+[tool.poetry.dev-dependencies]
+python-dotenv = "^0.20.0"
+black = "^22.6.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

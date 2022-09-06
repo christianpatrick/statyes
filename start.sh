@@ -48,4 +48,4 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/mast
 sleep 20
 
 # Start the Cluster
-kubectl apply -f ./kube
+kubectl apply -f ./.kube
